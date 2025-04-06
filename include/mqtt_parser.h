@@ -1,6 +1,10 @@
+#ifndef MQTT_PARSER_H
+#define MQTT_PARSER_H
+
 #include <vector>
 #include <string>
 #include <stdexcept>
+#include "client_handler.h"
 
 enum class MQTTMessageType {
 	CONNECT = 1,		// Connection request
@@ -29,10 +33,13 @@ struct MQTTFixedHeader {
 };
 
 class MQTTParser {
+public:
 	//MQTTParser();
 	MQTTMessageType parseMessageType(const std::vector<uint8_t>& packet);
-	MQTTFixedHeader MQTTParser::parseFixedHeader(const std::vector<uint8_t>& packet);
-	void parsePacket(const std::vector<uint8_t>& packet);
-	void parseConnectPacket(const std::vector<uint8_t>& packet);
+	MQTTFixedHeader parseFixedHeader(const char* packet);
+	void parsePacket(const char* packet);
+	Client parseConnectPacket(const char* packet);
 	void parsePublishPacket(const std::vector<uint8_t>& packet);
 };
+
+#endif // MQTT_PARSER_H

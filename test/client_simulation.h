@@ -8,11 +8,11 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
-class Client {
+class ClientSimulation {
 public:
-    Client();
-    ~Client();
-    void send_message(const char* message);
+    ClientSimulation();
+    ~ClientSimulation();
+    void send_message(std::vector<uint8_t> message);
     //void start();
 
 private:

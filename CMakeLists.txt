@@ -20,8 +20,8 @@ set(HEADERS
 )
 
 # Create the executable with both sources and headers
-add_executable(mqtt-broker ${SOURCES} ${HEADERS})
-add_library(server_lib STATIC src/server.cpp)
+# add_executable(mqtt-broker ${SOURCES} ${HEADERS})
+add_library(mqtt-broker STATIC ${SOURCES})
 
 # Ajout des fichiers sources
 set(TEST
@@ -37,7 +37,7 @@ add_executable(test ${TEST})
 if(WIN32)
     # Link with the ws2_32 library on Windows
     target_link_libraries(mqtt-broker ws2_32)
-    target_link_libraries(test ws2_32 server_lib)
+    target_link_libraries(test ws2_32 mqtt-broker)
 endif()
 
 # Ajout des includes

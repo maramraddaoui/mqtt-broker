@@ -23,7 +23,7 @@
 }*/
 
 
-Client::Client() {
+ClientSimulation::ClientSimulation() {
     // Initialize Winsock
     WSADATA wsaData;
     if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
@@ -54,7 +54,7 @@ Client::Client() {
     }
 }
 
-Client::~Client() {
+ClientSimulation::~ClientSimulation() {
     // Clean up and close the client socket
     closesocket(_clientSocket);
     WSACleanup();
@@ -62,8 +62,8 @@ Client::~Client() {
     
 }
 
-void Client::send_message(const char* message) {
+void ClientSimulation::send_message(std::vector<uint8_t> message) {
     // Send a message to the server
-    send(_clientSocket, message, strlen(message), 0);
-    std::cout << "Message sent to the server." << std::endl;
+    int sent = send(_clientSocket, reinterpret_cast<const char*>(message.data()), message.size(), 0);
+    std::cout << "Message sent to the server: " << sent << std::endl;
 }
